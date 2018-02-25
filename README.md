@@ -1,3 +1,3 @@
 # CS-353 Social Gaming Marketplace
 
-Project Report Proposal
+Project Report Proposal:
