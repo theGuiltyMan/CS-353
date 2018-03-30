@@ -67,7 +67,7 @@ CREATE TABLE library(
     game_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (game_id) REFERENCES games(game_id),
-    PRIMARY KEY (user_id,library_name)    
+    PRIMARY KEY (user_id,library_name)  
 );
 
 CREATE TABLE plays(
@@ -188,5 +188,6 @@ CREATE TABLE post_of(
     date TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(user_id),    
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id),
-    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id)
+    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id),
+    PRIMARY KEY (user_id,comment_id)
 );
