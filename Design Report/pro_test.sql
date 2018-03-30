@@ -41,6 +41,7 @@ CREATE TABLE games (
     game_name VARCHAR(255) NOT NULL UNIQUE,
     price DECIMAL(5,2),
     img_location VARCHAR(255),
+    release_date TIMESTAMP DEFAULT NOW(),
     description LONGTEXT
 );
 
