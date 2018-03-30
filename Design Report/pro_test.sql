@@ -38,7 +38,7 @@ CREATE TABLE users (
 
 CREATE TABLE games (
     game_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    game_name VARCHAR(255) NOT NULL,
+    game_name VARCHAR(255) NOT NULL UNIQUE,
     price DECIMAL(5,2),
     img_location VARCHAR(255),
     description LONGTEXT
