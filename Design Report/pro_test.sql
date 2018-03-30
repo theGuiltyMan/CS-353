@@ -76,11 +76,12 @@ CREATE TABLE plays(
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id)
+    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    UNIQUE(user_id,start_date)
 );
 CREATE TABLE genres (
     genre_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    genre VARCHAR(30) NOT NULL
+    genre VARCHAR(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE game_genres(
@@ -114,7 +115,8 @@ CREATE TABLE messages(
     date TIMESTAMP DEFAULT NOW(),
     text LONGTEXT,
     FOREIGN KEY (sender) REFERENCES users(user_id),
-    FOREIGN KEY (reciever) REFERENCES users(user_id)
+    FOREIGN KEY (reciever) REFERENCES users(user_id),
+    UNIQUE(sender,reciever,date)
 );
 
 CREATE TABLE send_invitation(
@@ -160,13 +162,12 @@ CREATE TABLE comments(
 
 CREATE TABLE posts(
     title varchar(255) NOT NULL,
-    comment_id INT NOT NULL,
+    comment_id INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
 );
 
 CREATE TABLE replies(
-    depth INT NOT NULL,
-    comment_id INT NOT NULL,
+    comment_id INT NOT NULL PRIMARY KEY,
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
 );
 
@@ -176,7 +177,8 @@ CREATE TABLE replied(
     reply_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (parent_id) REFERENCES comments(comment_id),
-    FOREIGN KEY (reply_id) REFERENCES comments(comment_id)    
+    FOREIGN KEY (reply_id) REFERENCES comments(comment_id),
+    UNIQUE(user_id, reply_id)    
 );
 
 CREATE TABLE post_of(
