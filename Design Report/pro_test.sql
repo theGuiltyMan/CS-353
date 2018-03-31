@@ -85,7 +85,7 @@ CREATE TABLE plays(
     UNIQUE(user_id,start_date)
 );
 CREATE TABLE genres (
-    genre VARCHAR(30) NOT NULL PRIMARY KEY
+    genre_name VARCHAR(30) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE game_genres(
