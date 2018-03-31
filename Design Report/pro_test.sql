@@ -45,6 +45,7 @@ CREATE TABLE games (
     release_date TIMESTAMP DEFAULT NOW(),
     description LONGTEXT,
     publisher_id INT,
+    discount_amount INT DEFAULT 0,
     FOREIGN KEY (publisher_id) REFERENCES users(user_id)
 );
 
@@ -84,16 +85,15 @@ CREATE TABLE plays(
     UNIQUE(user_id,start_date)
 );
 CREATE TABLE genres (
-    genre_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    genre VARCHAR(30) NOT NULL UNIQUE
+    genre VARCHAR(30) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE game_genres(
     game_id INT NOT NULL,
-    genre_id INT NOT NULL,
-    FOREIGN KEY (game_id) REFERENCES genres(genre_id),
+    genre_name INT NOT NULL,
+    FOREIGN KEY (genre_name) REFERENCES genres(genre_name),
     FOREIGN KEY (game_id) REFERENCES games(game_id),
-    PRIMARY KEY (game_id,genre_id)
+    PRIMARY KEY (game_id,genre_name)
 );
 
 CREATE TABLE friend_request(
@@ -176,7 +176,9 @@ CREATE TABLE posts(
 CREATE TABLE replies(
     comment_id INT NOT NULL PRIMARY KEY,
     parent_id INT NOT NULL,
-    FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
+    post_id INT NOT NULL,
+    FOREIGN KEY (comment_id) REFERENCES comments(comment_id),
+    FOREIGN KEY (post_id) REFERENCES comments(post_id)
 );
 
 /*

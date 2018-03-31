@@ -5,7 +5,7 @@
 
 SELECT user_id
 FROM users
-WHERE email = @email_username OR user_name = email_username AND pssword = @password
+WHERE email = @email_username OR user_name = email_username AND password = @password
 ;
 
 /*
@@ -13,7 +13,7 @@ WHERE email = @email_username OR user_name = email_username AND pssword = @passw
     Inputs: @user_name, @password, @email
 */
 
-INSERT INTO users (user_name, pssword, email) VALUES (
+INSERT INTO users (user_name, password, email) VALUES (
     @user_name,
     @password,
     @email
@@ -121,5 +121,63 @@ INSERT INTO send_invitation  (sender_id, reciever_id, game_id) VALUES (
 */
 
 INSERT INTO messages  (sender_id, reciever_id, text) VALUES (
+    @sender_id,
+    @reciever_id,
+    @text
+);
 
+/*
+    Unfriend
+    Inputs: @user_id1, @user_id2
+*/
+
+DELETE FROM friends
+WHERE (user_id1 = @user_id1 AND user_id2 = @user_id2) OR 
+      (user_id1 = @user_id2 AND user_id2 = @user_id1)
+;
+
+
+
+
+/*
+    Ban Users
+    Inputs: @banned_id, @moderator_id, @discussion_id
+*/
+
+INSERT INTO banned_users (banned_user_id, moderator_id, discussion_id) VALUES (
+    @banned_id,
+    @moderator_id,
+    @discussion_id
+);
+
+/*
+    UnBan Users
+    Inputs: @banned_id, @discussion_id
+*/
+DELETE FROM banned_users
+WHERE discussion_id = @discussion_id, banned_id = @banned_id
+;
+
+
+/*
+    Publish a Game
+    Inputs: @game_name, @price, @img_location, @publisher_id, @description
+*/
+
+INSERT INTO games (game_name, price, img_location, description, publisher_id) VALUES (
+    @game_name,
+    @price,
+    @img_location,
+    @description,
+    @publisher_id
+);
+
+/*
+    Add Genres to Published Game
+    Inputs: @game_id, @genre_name
+*/
+
+INSERT INTO game_genres (game_id, genre_name) VALUES (
+    @game_id,
+    @genre_name
 );
