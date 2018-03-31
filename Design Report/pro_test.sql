@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS games;
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(20) NOT NULL UNIQUE,
-    pssword VARCHAR(45) NOT NULL,
+    password VARCHAR(45) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     balance DECIMAL(6,2),
     joinDate TIMESTAMP DEFAULT NOW(),    
