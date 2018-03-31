@@ -46,23 +46,23 @@ CREATE TABLE games (
     description LONGTEXT,
     publisher_id INT,
     discount_amount INT DEFAULT 0,
-    FOREIGN KEY (publisher_id) REFERENCES users(user_id)
+    FOREIGN KEY (publisher_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
 CREATE TABLE buy(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
     date TIMESTAMP NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,    
     PRIMARY KEY(user_id,game_id)
 );
 
 CREATE TABLE in_game(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE, 
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id,game_id)    
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE library(
     library_name VARCHAR(255) NOT NULL DEFAULT "My Games",
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id,library_name)  
 );
 
@@ -80,8 +80,8 @@ CREATE TABLE plays(
     game_id INT NOT NULL,
     start_date TIMESTAMP NOT NULL,
     end_date TIMESTAMP NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     UNIQUE(user_id,start_date)
 );
 CREATE TABLE genres (
@@ -90,25 +90,25 @@ CREATE TABLE genres (
 
 CREATE TABLE game_genres(
     game_id INT NOT NULL,
-    genre_name INT NOT NULL,
-    FOREIGN KEY (genre_name) REFERENCES genres(genre_name),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    genre_name VARCHAR(30) NOT NULL,
+    FOREIGN KEY (genre_name) REFERENCES genres(genre_name) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     PRIMARY KEY (game_id,genre_name)
 );
 
 CREATE TABLE friend_request(
     sender_id INT NOT NULL,
     reciever_id INT NOT NULL,
-    FOREIGN KEY (sender_id) REFERENCES users(user_id),
-    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (sender_id,reciever_id)
 );
 
 CREATE TABLE friends(
     user_id1 INT NOT NULL,
     user_id2 INT NOT NULL,
-    FOREIGN KEY (user_id1) REFERENCES users(user_id),
-    FOREIGN KEY (user_id2) REFERENCES users(user_id),
+    FOREIGN KEY (user_id1) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id2) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id1, user_id2)
 );
 
@@ -118,8 +118,8 @@ CREATE TABLE messages(
     reciever_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
     text LONGTEXT,
-    FOREIGN KEY (sender_id) REFERENCES users(user_id),
-    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
     UNIQUE(sender_id,reciever_id,date)
 );
 
@@ -128,24 +128,24 @@ CREATE TABLE send_invitation(
     reciever_id INT NOT NULL,
     game_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
-    FOREIGN KEY (sender_id) REFERENCES users(user_id),
-    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
-    PRIMARY KEY (game_id, sender_id, reciever_id)
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
+    PRIMARY KEY (game_id, sender_id, reciever_id) 
 );
 
 CREATE TABLE discussions(
     discussion_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     discussion_name VARCHAR(30) NOT NULL,
     game_id INT NOT NULL,
-    FOREIGN KEY (game_id) REFERENCES games(game_id),
+    FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     UNIQUE(game_id, discussion_name)
 );
 CREATE TABLE moderates(
     user_id INT NOT NULL,
     discussion_id INT NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id,discussion_id)
 );
 
@@ -153,9 +153,9 @@ CREATE TABLE banned_users(
     banned_user_id INT NOT NULL,
     moderator_id INT NOT NULL,
     discussion_id INT NOT NULL,
-    FOREIGN KEY (banned_user_id) REFERENCES users(user_id),
-    FOREIGN KEY (moderator_id) REFERENCES users(user_id),
-    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id),
+    FOREIGN KEY (banned_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (moderator_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id) ON DELETE CASCADE,
     PRIMARY KEY (banned_user_id, moderator_id, discussion_id)
 );
 
@@ -170,15 +170,15 @@ CREATE TABLE posts(
     title varchar(255) NOT NULL,
     comment_id INT NOT NULL PRIMARY KEY,
     discussion_id INT NOT NULL,
-    FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
+    FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE
 ); 
 
 CREATE TABLE replies(
     comment_id INT NOT NULL PRIMARY KEY,
     parent_id INT NOT NULL,
     post_id INT NOT NULL,
-    FOREIGN KEY (comment_id) REFERENCES comments(comment_id),
-    FOREIGN KEY (post_id) REFERENCES comments(comment_id)
+    FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES comments(comment_id) ON DELETE CASCADE
 );
 
 /*
@@ -187,8 +187,8 @@ CREATE TABLE replied(
     parent_id INT NOT NULL,
     reply_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
-    FOREIGN KEY (parent_id) REFERENCES comments(comment_id),
-    FOREIGN KEY (reply_id) REFERENCES comments(comment_id),
+    FOREIGN KEY (parent_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+    FOREIGN KEY (reply_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
     UNIQUE(user_id, reply_id)    
 );
 
@@ -197,9 +197,9 @@ CREATE TABLE post_of(
     comment_id INT NOT NULL,
     discussion_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),    
-    FOREIGN KEY (comment_id) REFERENCES comments(comment_id),
-    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,    
+    FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+    FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id,comment_id)
 );
 */
