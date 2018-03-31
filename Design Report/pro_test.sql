@@ -1,6 +1,7 @@
 /*
 only for testing
 */
+DROP TABLE IF EXISTS publish;
 DROP TABLE IF EXISTS moderates;
 DROP TABLE IF EXISTS banned_users;
 DROP TABLE IF EXISTS in_game;
@@ -42,7 +43,9 @@ CREATE TABLE games (
     price DECIMAL(5,2),
     img_location VARCHAR(255),
     release_date TIMESTAMP DEFAULT NOW(),
-    description LONGTEXT
+    description LONGTEXT,
+    publisher_id INT,
+    FOREIGN KEY (publisher_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE buy(
