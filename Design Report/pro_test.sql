@@ -176,6 +176,7 @@ CREATE TABLE posts(
 CREATE TABLE replies(
     comment_id INT NOT NULL PRIMARY KEY,
     parent_id INT NOT NULL,
+    post_id INT NOT NULL,
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
 );
 
