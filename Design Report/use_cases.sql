@@ -71,3 +71,55 @@ WHERE discussion_id = @discussion_id
 ORDER BY date DESC
 LIMIT 10
 ;
+
+/*
+    Add Friends
+    Input: @user_id1, @user_id2
+*/
+
+INSERT INTO friends (user_id1,user_id2) VALUES (
+    user_id1,
+    user_id2
+);
+
+/*
+    Starting to Play a Game
+    Inputs: @user_id, @game_id
+*/
+
+INSERT INTO plays (user_id, game_id) VALUES (
+    @user_id,
+    @game_id
+);
+
+/*
+    Exiting From Game
+    Inputs: @user_id, @game_id
+*/
+
+UPDATE plays 
+SET end_date = NOW()
+WHERE user_id = @user_id AND
+      game_id = @game_id AND
+      end_date is NULL
+;
+
+/*
+    Send Game Invation
+    Inputs: @sender_id, @reciever_id, @game_id
+*/
+
+INSERT INTO send_invitation  (sender_id, reciever_id, game_id) VALUES (
+    @sender_id,
+    @reciever_id,
+    @game_id
+);
+
+/*
+    Send Message
+    Inputs: @sender_id, @reciever_id, @text
+*/
+
+INSERT INTO messages  (sender_id, reciever_id, text) VALUES (
+
+);

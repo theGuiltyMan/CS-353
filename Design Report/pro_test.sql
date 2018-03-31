@@ -75,7 +75,7 @@ CREATE TABLE plays(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
     start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP,
+    end_date TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (game_id) REFERENCES games(game_id),
     UNIQUE(user_id,start_date)
@@ -94,11 +94,11 @@ CREATE TABLE game_genres(
 );
 
 CREATE TABLE friend_request(
-    sender INT NOT NULL,
-    reciever INT NOT NULL,
-    FOREIGN KEY (sender) REFERENCES users(user_id),
-    FOREIGN KEY (reciever) REFERENCES users(user_id),
-    PRIMARY KEY (sender,reciever)
+    sender_id INT NOT NULL,
+    reciever_id INT NOT NULL,
+    FOREIGN KEY (sender_id) REFERENCES users(user_id),
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
+    PRIMARY KEY (sender_id,reciever_id)
 );
 
 CREATE TABLE friends(
@@ -111,24 +111,24 @@ CREATE TABLE friends(
 
 CREATE TABLE messages(
     message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    sender INT NOT NULL,
-    reciever INT NOT NULL,
+    sender_id INT NOT NULL,
+    reciever_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
     text LONGTEXT,
-    FOREIGN KEY (sender) REFERENCES users(user_id),
-    FOREIGN KEY (reciever) REFERENCES users(user_id),
-    UNIQUE(sender,reciever,date)
+    FOREIGN KEY (sender_id) REFERENCES users(user_id),
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
+    UNIQUE(sender_id,reciever_id,date)
 );
 
 CREATE TABLE send_invitation(
-    sender INT NOT NULL,
-    reciever INT NOT NULL,
+    sender_id INT NOT NULL,
+    reciever_id INT NOT NULL,
     game_id INT NOT NULL,
     date TIMESTAMP DEFAULT NOW(),
-    FOREIGN KEY (sender) REFERENCES users(user_id),
-    FOREIGN KEY (reciever) REFERENCES users(user_id),
+    FOREIGN KEY (sender_id) REFERENCES users(user_id),
+    FOREIGN KEY (reciever_id) REFERENCES users(user_id),
     FOREIGN KEY (game_id) REFERENCES games(game_id),
-    PRIMARY KEY (game_id, sender, reciever)
+    PRIMARY KEY (game_id, sender_id, reciever_id)
 );
 
 CREATE TABLE discussions(
@@ -157,21 +157,26 @@ CREATE TABLE banned_users(
 );
 
 CREATE TABLE comments(
+    user_id INT NOT NULL,
     comment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    date TIMESTAMP DEFAULT NOW(),    
     text LONGTEXT NOT NULL
 );
 
 CREATE TABLE posts(
     title varchar(255) NOT NULL,
     comment_id INT NOT NULL PRIMARY KEY,
+    discussion_id INT NOT NULL,
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
-);
+); 
 
 CREATE TABLE replies(
     comment_id INT NOT NULL PRIMARY KEY,
+    parent_id INT NOT NULL,
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id)
 );
 
+/*
 CREATE TABLE replied(
     user_id INT NOT NULL,
     parent_id INT NOT NULL,
@@ -192,3 +197,4 @@ CREATE TABLE post_of(
     FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id),
     PRIMARY KEY (user_id,comment_id)
 );
+*/
