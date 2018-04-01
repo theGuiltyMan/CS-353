@@ -78,7 +78,7 @@ CREATE TABLE library(
 CREATE TABLE plays(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    start_date DATETIME NOT NULL,
+    start_date DATETIME DEFAULT NOW(),
     end_date DATETIME NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
