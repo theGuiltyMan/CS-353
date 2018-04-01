@@ -16,30 +16,27 @@ CREATE PROCEDURE insert_comment (
             INSERT INTO posts(comment_id,title,discussion_id) VALUES (id,input_title,discussion_id);
         ELSE INSERT INTO replies(comment_id,parent_id,post_id) VALUES (id,parent_id,post_id);
         END IF;
-    END;
-$$
+    END $$
+DELIMITER;
 
-DELIMETER $$
+DELIMITER $$
 CREATE PROCEDURE activate_discount (
-    IN genre_name VARCHAR(30),
+    IN input_game_id VARCHAR(30),
     IN amount DECIMAL(2,2)
 )
 BEGIN
     UPDATE games
     SET price = price - (price * amount), discount_amount = amount
-    WHERE game_id IN (SELECT game_id 
-                        FROM games g NATURAL JOIN game_genres gg on g.game_id = gg.game_id 
-                        WHERE gg.genre_name = genre_name
-                     )
-END;
-$$
+    WHERE game_id = input_game_id;
+END $$
+DELIMITER ;
 
-DELIMETER $$
+DELIMITER $$
 CREATE PROCEDURE restore_price (
     IN game_id INT
     )
     BEGIN
         UPDATE games
         SET price = price / (1 - discount_amount), discount_amount = 0;
-    END;
-&&
+    END $$
+DELIMITER ;
