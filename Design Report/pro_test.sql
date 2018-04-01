@@ -45,7 +45,7 @@ CREATE TABLE games (
     release_date TIMESTAMP DEFAULT NOW(),
     description LONGTEXT,
     publisher_id INT,
-    discount_amount INT DEFAULT 0,
+    discount_amount TINYINT DEFAULT 0,
     FOREIGN KEY (publisher_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
