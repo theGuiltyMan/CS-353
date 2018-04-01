@@ -18,3 +18,28 @@ CREATE PROCEDURE insert_comment (
         END IF;
     END;
 $$
+
+DELIMETER $$
+CREATE PROCEDURE activate_discount (
+    IN genre_name VARCHAR(30),
+    IN amount DECIMAL(2,2)
+)
+BEGIN
+    UPDATE games
+    SET price = price - (price * amount), discount_amount = amount
+    WHERE game_id IN (SELECT game_id 
+                        FROM games g NATURAL JOIN game_genres gg on g.game_id = gg.game_id 
+                        WHERE gg.genre_name = genre_name
+                     )
+END;
+$$
+
+DELIMETER $$
+CREATE PROCEDURE restore_price (
+    IN game_id INT
+    )
+    BEGIN
+        UPDATE games
+        SET price = price / (1 - discount_amount), discount_amount = 0;
+    END;
+&&

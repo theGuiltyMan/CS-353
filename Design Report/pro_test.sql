@@ -20,8 +20,8 @@ DROP TABLE IF EXISTS messages;
 DROP TABLE IF EXISTS send_invitation;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS discussions;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS games;
+DROP TABLE IF EXISTS users;
 /*
  *
  */
@@ -30,11 +30,11 @@ CREATE TABLE users (
     user_name VARCHAR(20) NOT NULL UNIQUE,
     password VARCHAR(45) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    balance DECIMAL(6,2),
+    balance DECIMAL(6,2) NOT NULL DEFAULT 0,
     joinDate TIMESTAMP DEFAULT NOW(),    
     isAdmin BOOLEAN  NOT NULL DEFAULT FALSE,
     isGameDev BOOLEAN NOT NULL DEFAULT FALSE,
-    isOnline BOOLEAN NOT NULL
+    isOnline BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE games (
@@ -45,7 +45,7 @@ CREATE TABLE games (
     release_date TIMESTAMP DEFAULT NOW(),
     description LONGTEXT,
     publisher_id INT,
-    discount_amount INT DEFAULT 0,
+    discount_amount DECIMAL (2,2) DEFAULT 0,
     FOREIGN KEY (publisher_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 

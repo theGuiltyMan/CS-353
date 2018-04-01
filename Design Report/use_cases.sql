@@ -181,3 +181,20 @@ INSERT INTO game_genres (game_id, genre_name) VALUES (
     @game_id,
     @genre_name
 );
+
+CREATE VIEW most_sold AS
+     SELECT game_id, COUNT(user_id) as units_sold
+          FROM buy
+          WHERE date >= (DATE(NOW()) - INTERVAL 7 DAY)
+          ORDER BY units_sold DESC
+
+;
+
+CREATE VIEW trending AS
+    SELECT game_name
+    FROM most_sold m NATURAL JOIN games g
+;
+    
+    /*buy b NATURAL JOIN games g on g.game_id = b.game_id
+    WHERE b.date >= DATE(NOW()) - INTERVAL 7 DAY
+;*/
