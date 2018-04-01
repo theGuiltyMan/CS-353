@@ -31,7 +31,7 @@ CREATE TABLE users (
     password VARCHAR(45) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     balance DECIMAL(6,2) NOT NULL DEFAULT 0,
-    joinDate TIMESTAMP DEFAULT NOW(),    
+    joinDate DATETIME DEFAULT NOW(),    
     isAdmin BOOLEAN  NOT NULL DEFAULT FALSE,
     isGameDev BOOLEAN NOT NULL DEFAULT FALSE,
     isOnline BOOLEAN NOT NULL DEFAULT FALSE
@@ -42,7 +42,7 @@ CREATE TABLE games (
     game_name VARCHAR(255) NOT NULL UNIQUE,
     price DECIMAL(5,2),
     img_location VARCHAR(255),
-    release_date TIMESTAMP DEFAULT NOW(),
+    release_date DATETIME DEFAULT NOW(),
     description LONGTEXT,
     publisher_id INT,
     discount_amount DECIMAL (2,2) DEFAULT 0,
@@ -52,7 +52,7 @@ CREATE TABLE games (
 CREATE TABLE buy(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    date TIMESTAMP NOT NULL DEFAULT NOW(),
+    date DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,    
     PRIMARY KEY(user_id,game_id)
@@ -78,8 +78,8 @@ CREATE TABLE library(
 CREATE TABLE plays(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP NULL,
+    start_date DATETIME NOT NULL,
+    end_date DATETIME NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     UNIQUE(user_id,start_date)
