@@ -99,6 +99,7 @@ CREATE TABLE game_genres(
 CREATE TABLE friend_request(
     sender_id INT NOT NULL,
     reciever_id INT NOT NULL,
+    date DATETIME DEFAULT NOW(),
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (sender_id,reciever_id)
@@ -107,6 +108,7 @@ CREATE TABLE friend_request(
 CREATE TABLE friends(
     user_id1 INT NOT NULL,
     user_id2 INT NOT NULL,
+    date DATETIME DEFAULT NOW(),
     FOREIGN KEY (user_id1) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id2) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id1, user_id2)
@@ -116,7 +118,7 @@ CREATE TABLE messages(
     message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     reciever_id INT NOT NULL,
-    date TIMESTAMP DEFAULT NOW(),
+    date DATETIME DEFAULT NOW(),
     text LONGTEXT,
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
@@ -153,6 +155,7 @@ CREATE TABLE banned_users(
     banned_user_id INT NOT NULL,
     moderator_id INT NOT NULL,
     discussion_id INT NOT NULL,
+    date TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (banned_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (moderator_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id) ON DELETE CASCADE,
