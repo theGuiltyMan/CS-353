@@ -34,13 +34,12 @@ CREATE TABLE users (
     joinDate DATETIME DEFAULT NOW(),    
     isAdmin BOOLEAN  NOT NULL DEFAULT FALSE,
     isGameDev BOOLEAN NOT NULL DEFAULT FALSE,
-    isOnline BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE games (
     game_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     game_name VARCHAR(255) NOT NULL UNIQUE,
-    price DECIMAL(5,2),
+    price DECIMAL(5,2) NOT NULL,
     img_location VARCHAR(255),
     release_date DATETIME DEFAULT NOW(),
     description LONGTEXT,
@@ -52,6 +51,7 @@ CREATE TABLE games (
 CREATE TABLE buy(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
+    price DECIMAL(5,2) NOT NULL,
     date DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,    
@@ -85,15 +85,17 @@ CREATE TABLE plays(
     UNIQUE(user_id,start_date)
 );
 CREATE TABLE genres (
-    genre_name VARCHAR(30) NOT NULL PRIMARY KEY
+    genre_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    genre_name VARCHAR(30) NOT NULL PRIMARY KEY,
+    age_registriction INT NOT NULL
 );
 
 CREATE TABLE game_genres(
     game_id INT NOT NULL,
-    genre_name VARCHAR(30) NOT NULL,
-    FOREIGN KEY (genre_name) REFERENCES genres(genre_name) ON DELETE CASCADE,
+    genre_id VARCHAR(30) NOT NULL,
+    FOREIGN KEY (genre_id) REFERENCES genres(genre_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
-    PRIMARY KEY (game_id,genre_name)
+    PRIMARY KEY (game_id,genre_id)
 );
 
 CREATE TABLE friend_request(
@@ -159,29 +161,35 @@ CREATE TABLE banned_users(
     FOREIGN KEY (banned_user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (moderator_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (discussion_id) REFERENCES discussions(discussion_id) ON DELETE CASCADE,
-    PRIMARY KEY (banned_user_id, moderator_id, discussion_id)
+    PRIMARY KEY (banned_user_id, discussion_id)
 );
 
 CREATE TABLE comments(
-    user_id INT NOT NULL,
     comment_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     date TIMESTAMP DEFAULT NOW(),    
     text LONGTEXT NOT NULL
 );
 
 CREATE TABLE posts(
+    user_id INT NOT NULL,    
     title varchar(255) NOT NULL,
-    comment_id INT NOT NULL PRIMARY KEY,
+    comment_id INT NOT NULL,
     discussion_id INT NOT NULL,
+    date TIMESTAMP DEFAULT NOW(),    
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    PRIMARY KEY(user_id,comment_id, discussion_id,date)
 ); 
 
 CREATE TABLE replies(
+    user_id INT NOT NULL,    
     comment_id INT NOT NULL PRIMARY KEY,
-    parent_id INT NOT NULL,
-    post_id INT NOT NULL,
+    replied_id INT NOT NULL,
+    date TIMESTAMP DEFAULT NOW(),    
     FOREIGN KEY (comment_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
-    FOREIGN KEY (post_id) REFERENCES comments(comment_id) ON DELETE CASCADE
+    FOREIGN KEY (post_id) REFERENCES comments(comment_id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    PRIMARY KEY(user_id,comment_id, date)
 );
 
 /*
