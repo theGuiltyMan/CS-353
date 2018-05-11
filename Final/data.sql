@@ -124,7 +124,10 @@ INSERT INTO friends (user_id1,user_id2) VALUES
 (9,11),
 (9,12),
 (11,12),
-(12,13);
+(12,13),
+(4,1),
+(7,1),
+(13,1);
 
 INSERT INTO discussions (discussion_name,game_id) VALUES 
 ("Technical", 1),
@@ -212,4 +215,25 @@ INSERT INTO replies (user_id,comment_id,replied_id) VALUES
 (5,5,2);
 
 
+INSERT INTO plays (user_id,game_id,start_date,end_date) VALUES 
+(1,10,"2018-05-11 12:12:12", "2018-05-11 13:12:12"),
+(1,6,"2018-05-11 19:55:12", "2018-05-11 21:12:12"),
+(3,5,"2018-05-11 05:12:11", "2018-05-11 13:32:12"),
+(3,14,"2018-05-11 14:12:12", "2018-05-11 18:21:33"),
+(3,12,"2018-05-11 23:12:12", "2018-05-12 02:05:00");
 
+INSERT INTO friend_request (sender_id,reciever_id) VALUES
+(1,4),
+(2,1),
+(3,5),
+(13,1),
+(6,9),
+(7,2);
+
+INSERT INTO messages (sender_id,reciever_id,text) VALUES
+(1,3,"Helloooooooooooo!"),
+(3,13, "Trade with me pls."),
+(5,8, "How can I help");
+
+INSERT INTO send_invitation (sender_id, reciever_id,game_id)
+(1,3,6);
