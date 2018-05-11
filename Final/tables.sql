@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     user_name VARCHAR(20) NOT NULL UNIQUE,
-    password VARCHAR(45) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     balance DECIMAL(6,2) NOT NULL DEFAULT 0,
     joinDate DATETIME DEFAULT NOW(),    
@@ -72,7 +72,7 @@ CREATE TABLE library(
     game_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
-    PRIMARY KEY (user_id,library_name)  
+    PRIMARY KEY (user_id,library_name,game_id)  
 );
 
 CREATE TABLE plays(
