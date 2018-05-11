@@ -31,7 +31,7 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     balance DECIMAL(6,2) NOT NULL DEFAULT 0,
-    joinDate DATETIME DEFAULT NOW(),    
+    joinDate TIMESTAMP DEFAULT NOW(),    
     isAdmin BOOLEAN  NOT NULL DEFAULT FALSE,
     isGameDev BOOLEAN NOT NULL DEFAULT FALSE
 );
@@ -41,7 +41,7 @@ CREATE TABLE games (
     game_name VARCHAR(255) NOT NULL UNIQUE,
     price DECIMAL(5,2) NOT NULL,
     img_location VARCHAR(255),
-    release_date DATETIME DEFAULT NOW(),
+    release_date TIMESTAMP DEFAULT NOW(),
     description LONGTEXT,
     publisher_id INT,
     discount_amount DECIMAL (2,2) DEFAULT 0,
@@ -52,7 +52,7 @@ CREATE TABLE buy(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
     price DECIMAL(5,2) NOT NULL,
-    date DATETIME NOT NULL DEFAULT NOW(),
+    date TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,    
     PRIMARY KEY(user_id,game_id)
@@ -78,8 +78,8 @@ CREATE TABLE library(
 CREATE TABLE plays(
     user_id INT NOT NULL,
     game_id INT NOT NULL,
-    start_date DATETIME DEFAULT NOW(),
-    end_date DATETIME NULL,
+    start_date TIMESTAMP DEFAULT NOW(),
+    end_date TIMESTAMP NULL,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     UNIQUE(user_id,start_date)
@@ -101,7 +101,7 @@ CREATE TABLE game_genres(
 CREATE TABLE friend_request(
     sender_id INT NOT NULL,
     reciever_id INT NOT NULL,
-    date DATETIME DEFAULT NOW(),
+    date TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (sender_id,reciever_id)
@@ -110,7 +110,7 @@ CREATE TABLE friend_request(
 CREATE TABLE friends(
     user_id1 INT NOT NULL,
     user_id2 INT NOT NULL,
-    date DATETIME DEFAULT NOW(),
+    date TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (user_id1) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id2) REFERENCES users(user_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id1, user_id2)
@@ -120,7 +120,7 @@ CREATE TABLE messages(
     message_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     reciever_id INT NOT NULL,
-    date DATETIME DEFAULT NOW(),
+    date TIMESTAMP DEFAULT NOW(),
     text LONGTEXT,
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (reciever_id) REFERENCES users(user_id) ON DELETE CASCADE,
