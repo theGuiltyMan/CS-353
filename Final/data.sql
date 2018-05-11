@@ -129,6 +129,9 @@ INSERT INTO friends (user_id1,user_id2) VALUES
 (7,1),
 (13,1);
 
+INSERT INTO friends (user_id1,user_id2,date) VALUES
+(5,13,"2018-05-06 12:12:12"); 
+
 INSERT INTO discussions (discussion_name,game_id) VALUES 
 ("Technical", 1),
 ("Technical", 2),
@@ -220,7 +223,8 @@ INSERT INTO plays (user_id,game_id,start_date,end_date) VALUES
 (1,6,"2018-05-11 19:55:12", "2018-05-11 21:12:12"),
 (3,5,"2018-05-11 05:12:11", "2018-05-11 13:32:12"),
 (3,14,"2018-05-11 14:12:12", "2018-05-11 18:21:33"),
-(3,12,"2018-05-11 23:12:12", "2018-05-12 02:05:00");
+(3,12,"2018-05-11 23:12:12", "2018-05-12 02:05:00"),
+(5,5,"2018-05-07 23:12:12", "2018-05-08 02:05:00");
 
 INSERT INTO friend_request (sender_id,reciever_id) VALUES
 (1,4),
