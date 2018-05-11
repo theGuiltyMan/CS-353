@@ -239,5 +239,5 @@ INSERT INTO messages (sender_id,reciever_id,text) VALUES
 (3,13, "Trade with me pls."),
 (5,8, "How can I help");
 
-INSERT INTO send_invitation (sender_id, reciever_id,game_id)
+INSERT INTO send_invitation (sender_id, reciever_id,game_id) VALUES
 (1,3,6);
