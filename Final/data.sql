@@ -77,5 +77,139 @@ INSERT INTO genres (genre_name, age_registriction) VALUES
 ("Blood", 16);
 
 INSERT INTO game_genres (game_id,genre_id) VALUES
-(1,13),
+(1,1),
 (1,4),
+(1,5),
+(2,4),
+(3,2),
+(3,3),
+(3,5),
+(4,5),
+(5,1),
+(5,5),
+(6,1),
+(6,5),
+(7,2),
+(7,3),
+(8,4),
+(9,4),
+(10,1),
+(10,4),
+(10,5),
+(11,2),
+(12,1),
+(12,5),
+(13,1),
+(13,5),
+(14,2),
+(14,3),
+(14,4),
+(15,4);
+
+INSERT INTO friends (user_id1,user_id2) VALUES 
+(1,3),
+(1,6),
+(1,8),
+(1,11),
+(2,3),
+(2,12),
+(3,9),
+(3,13),
+(4,5),
+(5,8),
+(6,7),
+(6,8),
+(7,8),
+(8,9),
+(9,11),
+(9,12),
+(11,12),
+(12,13);
+
+INSERT INTO discussions (discussion_name,game_id) VALUES 
+("Technical", 1),
+("Technical", 2),
+("Technical", 3),
+("Technical", 4),
+("Technical", 5),
+("Technical", 6),
+("Technical", 7),
+("Technical", 8),
+("Technical", 9),
+("Technical", 10),
+("Technical", 11),
+("Technical", 12),
+("Technical", 13),
+("Technical", 14),
+("Technical", 15),
+("Gameplay", 1);
+
+INSERT INTO moderates (user_id, discussion_id) VALUES 
+(3,1),
+(3,2),
+(3,3),
+(3,4),
+(3,5),
+(3,6),
+(3,7),
+(3,8),
+(3,9),
+(3,10),
+(3,11),
+(3,12),
+(3,13),
+(3,14),
+(3,15),
+(9,1),
+(9,2),
+(9,3),
+(9,4),
+(9,5),
+(9,6),
+(9,7),
+(9,8),
+(9,9),
+(9,10),
+(9,11),
+(9,12),
+(9,13),
+(9,14),
+(9,15);
+
+INSERT INTO banned_users (banned_user_id,moderator_id,discussion_id) VALUES 
+(5,3,1),
+(5,3,2),
+(5,3,3),
+(5,3,4),
+(5,3,5),
+(5,3,6),
+(5,3,7),
+(5,3,8),
+(5,3,9),
+(5,3,10),
+(5,3,11),
+(5,3,12),
+(5,3,13),
+(5,3,14),
+(5,3,15),
+(6,9,1),
+(6,9,3);
+
+INSERT INTO comments (text) VALUES
+("I need help"),
+("Stuck at installing."),
+("Whats the problem?"),
+("Black screen on startup."),
+("NVM it worked");
+
+INSERT INTO posts (user_id,title,comment_id,discussion_id) VALUES
+(1,"Help needed",1,1),
+(5,"Anyone?",2,1);
+
+INSERT INTO replies (user_id,comment_id,replied_id) VALUES
+(3,3,1),
+(1,4,3),
+(5,5,2);
+
+
+

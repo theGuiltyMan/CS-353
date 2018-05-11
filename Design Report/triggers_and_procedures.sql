@@ -10,11 +10,11 @@ CREATE PROCEDURE insert_comment (
     )
     BEGIN
         DECLARE id INT;
-        INSERT INTO comments(user_id, text) VALUES (user_id, input_text);
+        INSERT INTO comments(text) VALUES (input_text);
         SET id = LAST_INSERT_ID();
         IF (type = 'P' OR type = 'p') THEN
-            INSERT INTO posts(comment_id,title,discussion_id) VALUES (id,input_title,discussion_id);
-        ELSE INSERT INTO replies(comment_id,parent_id,post_id) VALUES (id,parent_id,post_id);
+            INSERT INTO posts(user_id,comment_id,title,discussion_id) VALUES (user_id,id,input_title,discussion_id);
+        ELSE INSERT INTO replies(user_id,comment_id,parent_id,post_id) VALUES (user_id,id,parent_id,post_id);
         END IF;
     END $$
 DELIMITER;
