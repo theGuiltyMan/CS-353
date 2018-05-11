@@ -226,6 +226,9 @@ INSERT INTO plays (user_id,game_id,start_date,end_date) VALUES
 (3,12,"2018-05-11 23:12:12", "2018-05-12 02:05:00"),
 (5,5,"2018-05-07 23:12:12", "2018-05-08 02:05:00");
 
+INSERT INTO plays (user_id,game_id) VALUES 
+(3,12);
+
 INSERT INTO friend_request (sender_id,reciever_id) VALUES
 (1,4),
 (2,1),
@@ -239,5 +242,9 @@ INSERT INTO messages (sender_id,reciever_id,text) VALUES
 (3,13, "Trade with me pls."),
 (5,8, "How can I help");
 
-INSERT INTO send_invitation (sender_id, reciever_id,game_id)
+INSERT INTO send_invitation VALUES (sender_id, reciever_id,game_id)
 (1,3,6);
+
+SELECT user_id, user_name, game_name, date
+FROM send_invitation i, users u, games g
+WHERE u.user_id = i.sender_id AND i.game_id = g.game_id AND i.reciever_id = 3;
