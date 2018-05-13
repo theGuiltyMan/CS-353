@@ -69,7 +69,7 @@ CREATE TABLE in_game(
 CREATE TABLE library(
     library_name VARCHAR(255) NOT NULL DEFAULT "My Games",
     user_id INT NOT NULL,
-    game_id INT NOT NULL,
+    game_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
     PRIMARY KEY (user_id,library_name,game_id)  

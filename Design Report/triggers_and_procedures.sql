@@ -40,3 +40,16 @@ CREATE PROCEDURE restore_price (
         SET price = price / (1 - discount_amount), discount_amount = 0;
     END $$
 DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER purchase_verification
+AFTER INSERT ON buy
+FOR EACH ROW BEGIN
+	INSERT INTO library (
+		user_id, game_id
+	) VALUES(
+		NEW.user_id, NEW.game_id
+	);
+    UPDATE users SET balance = balance - NEW.price WHERE user_id=NEW.user_id;
+END $$
+DELIMETER ;

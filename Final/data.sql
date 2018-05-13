@@ -26,7 +26,7 @@ INSERT INTO games (game_name, price, img_location, description, publisher_id) VA
 ("Tyranny", 41.99, "https://steamcdn-a.akamaihd.net/steam/apps/362960/header.jpg?t=1525905754", "Experience a story-driven RPG where your choices mean all the difference in a world conquered by evil.",8),
 ("Conan Exiles", 39.99, "https://steamcdn-a.akamaihd.net/steam/apps/440900/header.jpg?t=1525882013", "An open world survival game set in the lands of Conan the Barbarian. Survive in a vast and seamless world, build a home and kingdom, dominate your enemies in single and multiplayer.",8),
 ("Rocket League®", 19.99, "https://steamcdn-a.akamaihd.net/steam/apps/252950/header.jpg?t=1522783996", "Soccer meets driving once again in the long-awaited, physics-based multiplayer-focused sequel to Supersonic Acrobatic Rocket-Powered Battle-Cars! Choose a variety of high-flying vehicles equipped with huge rocket boosters to score amazing aerial goals and pull-off incredible game-changing saves!",4),
-("PLAYERUNKNOWN'S BATTLEGROUNDS", 29.99, "https://steamcdn-a.akamaihd.net/steam/apps/578080/header.jpg?t=1525138879", "PLAYERUNKNOWN'S BATTLEGROUNDS is a battle royale shooter that pits 100 players against each other in a struggle for survival. Gather supplies and outwit your opponents to become the last person standing.",8),
+("PUBG", 29.99, "https://steamcdn-a.akamaihd.net/steam/apps/578080/header.jpg?t=1525138879", "PLAYERUNKNOWN'S BATTLEGROUNDS is a battle royale shooter that pits 100 players against each other in a struggle for survival. Gather supplies and outwit your opponents to become the last person standing.",8),
 ("Grand Theft Auto V", 59.99, "https://steamcdn-a.akamaihd.net/steam/apps/271590/header.jpg?t=1516043170", "GTA Online: The Doomsday Heist Now Available. The risks are colossal, the enemies all but unstoppable... but the rewards are mouth-watering and a massive adrenaline spike is absolutely guaranteed. Assemble your crew for the biggest Online adventure yet, across 3 sprawling acts.",8),
 ("Stardew Valley", 13.99, "https://steamcdn-a.akamaihd.net/steam/apps/413150/header.jpg?t=1515525425", "You've inherited your grandfather's old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life. Can you learn to live off the land and turn these overgrown fields into a thriving home?",8),
 ("Divinity: Original Sin 2", 44.99, "https://steamcdn-a.akamaihd.net/steam/apps/435150/header.jpg?t=1524569831", "The eagerly anticipated sequel to the award-winning RPG. Gather your party. Master deep, tactical combat. Join up to 3 other players - but know that only one of you will have the chance to become a God",8);
@@ -68,6 +68,8 @@ INSERT INTO library (library_name,user_id,game_id) VALUES
 ("Worst", 3,1),
 ("Worst",3,4),
 ("Worst",3,12);
+
+select game_name from games_in_library where user_id=3 and library_name="My Games" and not exists (select game_name from games_in_library where user_id=3 and library_name="Worst")
 
 INSERT INTO genres (genre_name, age_registriction) VALUES
 ("Action", 13),
@@ -133,22 +135,66 @@ INSERT INTO friends (user_id1,user_id2,date) VALUES
 (5,13,"2018-05-06 12:12:12"); 
 
 INSERT INTO discussions (discussion_name,game_id) VALUES 
-("Technical", 1),
-("Technical", 2),
-("Technical", 3),
-("Technical", 4),
-("Technical", 5),
-("Technical", 6),
-("Technical", 7),
-("Technical", 8),
-("Technical", 9),
-("Technical", 10),
-("Technical", 11),
-("Technical", 12),
-("Technical", 13),
-("Technical", 14),
-("Technical", 15),
-("Gameplay", 1);
+('Technical', 1),
+('General', 1),
+('Gameplay', 1),
+('Guides', 1),
+('Technical', 2),
+('General', 2),
+('Gameplay', 2),
+('Guides', 2),
+('Technical', 3),
+('General', 3),
+('Gameplay', 3),
+('Guides', 3),
+('Technical', 4),
+('General', 4),
+('Gameplay', 4),
+('Guides', 4),
+('Technical', 5),
+('General', 5),
+('Gameplay', 5),
+('Guides', 5),
+('Technical', 6),
+('General', 6),
+('Gameplay', 6),
+('Guides', 6),
+('Technical', 7),
+('General', 7),
+('Gameplay', 7),
+('Guides', 7),
+('Technical', 8),
+('General', 8),
+('Gameplay', 8),
+('Guides', 8),
+('Technical', 9),
+('General', 9),
+('Gameplay', 9),
+('Guides', 9),
+('Technical', 10),
+('General', 10),
+('Gameplay', 10),
+('Guides', 10),
+('Technical', 11),
+('General', 11),
+('Gameplay', 11),
+('Guides', 11),
+('Technical', 12),
+('General', 12),
+('Gameplay', 12),
+('Guides', 12),
+('Technical', 13),
+('General', 13),
+('Gameplay', 13),
+('Guides', 13),
+('Technical', 14),
+('General', 14),
+('Gameplay', 14),
+('Guides', 14),
+('Technical', 15),
+('General', 15),
+('Gameplay', 15),
+('Guides', 15);
 
 INSERT INTO moderates (user_id, discussion_id) VALUES 
 (3,1),
@@ -244,3 +290,5 @@ INSERT INTO messages (sender_id,reciever_id,text) VALUES
 
 INSERT INTO send_invitation  (sender_id, reciever_id,game_id) VALUES
 (1,3,6);
+
+
