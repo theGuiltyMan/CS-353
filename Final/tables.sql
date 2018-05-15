@@ -214,3 +214,63 @@ CREATE TABLE post_of(
     PRIMARY KEY (user_id,comment_id)
 );
 */
+
+/*
+SELECT user_name as f_name, game_name as g_name, TIMESTAMPDIFF(HOUR, p.start_date , p.end_date) AS hours_played,
+DATEDIFF(NOW(), p.end_date) AS daysold
+FROM (SELECT user_id1 as friend_id, user_name as friend_name
+								FROM friends f, users u
+								WHERE user_id2=4 AND user_id1=u.user_id
+								UNION
+								SELECT user_id2 as friend, user_name as friend_name
+								FROM friends f, users u
+								WHERE user_id1=4 AND user_id2=u.user_id
+) AS f, users u, games g, plays p
+WHERE friend_id = u.user_id AND p.user_id = u.user_id AND p.game_id = g.game_id
+ORDER BY daysold ASC;
+
+INSERT INTO plays (user_id,game_id,start_date,end_date) VALUES 
+(3,1,"2018-05-11 12:13:12", "2018-05-11 13:32:12");
+
+SELECT user_id1 as friend_id, user_name as friend_name
+									FROM friends f, users u
+									WHERE user_id2=1 AND user_id1=u.user_id
+									UNION
+									SELECT user_id2 as friend, user_name as friend_name
+									FROM friends f, users u
+									WHERE user_id1=1 AND user_id2=u.user_id;
+
+
+
+SELECT DISTINCT f.friend_name, f.friend_id
+FROM (SELECT user_id1 as friend_id, user_name as friend_name
+								FROM friends f, users u
+								WHERE user_id2=1 AND user_id1=u.user_id
+								UNION
+								SELECT user_id2 as friend, user_name as friend_name
+								FROM friends f, users u
+								WHERE user_id1=1 AND user_id2=u.user_id
+) AS f, buy b
+WHERE f.friend_id IN (SELECT user_id FROM buy WHERE game_id=6);
+
+
+INSERT INTO send_invitation (sender_id, reciever_id,game_id) VALUES 
+( );
+
+CREATE VIEW most_sold AS
+SELECT game_id, COUNT(user_id) as units_sold
+FROM buy
+WHERE date >= (DATE(NOW()) - INTERVAL 7 DAY)
+GROUP BY game_id
+ORDER BY units_sold DESC;
+
+  CREATE VIEW trending AS
+  SELECT g.game_name, g.game_id, g.img_location, g.description,g.price, g.discount_amount
+  FROM most_sold m, games g
+  WHERE m.game_id = g.game_id;
+
+SELECT g.game_name, g.game_id, g.img_location, g.description, g.price,g.discount_amount
+FROM games g
+ORDER BY release_date DESC
+LIMIT 10;
+*/

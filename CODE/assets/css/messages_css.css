@@ -1,0 +1,44 @@
+/*#tabs {*/
+    /*color: white;*/
+
+/*}*/
+
+/*.messages-nav-link.active {*/
+    /*background-color: aqua;*/
+/*}*/
+
+/*.messages-nav-link{*/
+    /*background-color: #1200ff;*/
+/*}*/
+
+
+.message-nav-tabs {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #5b77cc;
+}
+
+.message-nav-item {
+    float: left;
+}
+
+.message-nav-link {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.message-nav-link:hover {
+    background-color: #1f6b95;
+    text-decoration: none;
+    color: white;
+}
+
+.message-nav-link:active{
+    background-color: #378195;
+}

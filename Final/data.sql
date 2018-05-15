@@ -291,4 +291,19 @@ INSERT INTO messages (sender_id,reciever_id,text) VALUES
 INSERT INTO send_invitation  (sender_id, reciever_id,game_id) VALUES
 (1,3,6);
 
+/*
+SELECT g.game_name, d.discussion_name, p.title
+FROM games g, discussions d, posts p
+WHERE d.game_id = g.game_id AND p.discussion_id = d.discussion_id AND
+        g.game_id = @game_id AND p.discussion_id = @discussion_id AND 
+        p.comment_id = @comment_id;
+
+
+
+SELECT r.comment_id,c.text, user_name, r.date
+FROM replies r, comments rc, users u, posts p
+WHERE r.replied_id = @input AND r.comment_id = rc.comment_id AND u.user_id = r.user_id
+        AND  p.comment_id = r.replied_id;
+*/
+
 
